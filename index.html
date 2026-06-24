@@ -59,15 +59,29 @@
         footer { text-align: center; padding: 40px 20px; color: white; opacity: 0.8; }
         footer p { margin-bottom: 10px; }
         .disclaimer { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-top: 20px; font-size: 0.9rem; }
+        /* 導航列 */
+        .nav-bar { position: sticky; top: 0; z-index: 1000; background: rgba(26,26,46,0.95); backdrop-filter: blur(10px); padding: 10px 0; border-bottom: 2px solid #e94560; }
+        .nav-bar .container { display: flex; align-items: center; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 0 10px; }
+        .nav-bar .container::-webkit-scrollbar { display: none; }
+        .nav-bar a { color: white; text-decoration: none; font-size: 0.8rem; white-space: nowrap; padding: 6px 12px; border-radius: 20px; background: rgba(255,255,255,0.1); transition: background 0.2s; flex-shrink: 0; }
+        .nav-bar a:hover, .nav-bar a:active { background: #e94560; }
+
         @media (max-width: 768px) {
             header h1 { font-size: 1.8rem; }
             .hero-stats { gap: 20px; }
             .stat-item { padding: 15px 20px; }
             .stat-number { font-size: 2rem; }
-            .section { padding: 25px; }
+            .section { padding: 20px 15px; }
             .form-row { grid-template-columns: 1fr; }
-            .price-table { font-size: 0.9rem; }
-            .price-table th, .price-table td { padding: 10px 15px; }
+            .price-table { font-size: 0.85rem; table-layout: fixed; width: 100%; }
+            .price-table th, .price-table td { padding: 8px 10px; overflow-wrap: break-word; word-wrap: break-word; }
+            .price-table th:first-child, .price-table td:first-child { width: 30%; }
+            .price-table th:not(:first-child), .price-table td:not(:first-child) { width: 35%; }
+            .damage-item { flex-direction: column; }
+            .damage-icon { margin-right: 0; margin-bottom: 8px; }
+            .damage-content p, .damage-content li { font-size: 0.9rem; }
+            .section h2 { font-size: 1.4rem; }
+            .section h3 { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -93,10 +107,26 @@
             </div>
         </div>
     </header>
-    
+
+    <!-- 導航列 -->
+    <nav class="nav-bar">
+        <div class="container">
+            <a href="#problem">❓問題</a>
+            <a href="#pricing">💰價格</a>
+            <a href="#damages">💎賠償</a>
+            <a href="#transfer">🔄轉移vs退款</a>
+            <a href="#comparison">📊比較</a>
+            <a href="#cases">🇺🇸案例</a>
+            <a href="#law">⚖️法律</a>
+            <a href="#timeline">📅時間軸</a>
+            <a href="#join">📝報名</a>
+            <a href="#faq">❓FAQ</a>
+        </div>
+    </nav>
+
     <div class="container">
         <!-- 問題說明 -->
-        <div class="section">
+        <div class="section" id="problem">
             <h2>❓ 問題是什麼？</h2>
             <p>Tesla 在銷售 FSD 時承諾車輛將達到 <strong>Level 5 全自動駕駛</strong>，但多年過去了，FSD 仍然是 <strong>Level 2 輔助駕駛</strong>系統，需要駕駛者持續監控。</p>
             
@@ -110,7 +140,7 @@
         </div>
         
         <!-- FSD 台灣價格歷史 -->
-        <div class="section">
+        <div class="section" id="pricing">
             <h2>💰 台灣 FSD 價格方案</h2>
             <p>以下是台灣 Tesla 官網目前的自動輔助駕駛方案售價：</p>
             
@@ -184,7 +214,7 @@
         </div>
         
         <!-- 可主張的賠償項目 -->
-        <div class="section">
+        <div class="section" id="damages">
             <h2>💎 可主張的賠償項目</h2>
             
             <div class="damage-list">
@@ -241,7 +271,7 @@
         </div>
         
         <!-- FSD 轉移 vs. 退款分析 -->
-        <div class="section">
+        <div class="section" id="transfer">
             <h2>🔄 FSD 轉移 vs. 退款：哪個合理？</h2>
             
             <h3>📋 目前台灣 Tesla 的 FSD 轉移政策</h3>
@@ -297,7 +327,7 @@
                 </div>
             </div>
             
-            <h3>📊 賠償項目比較</h3>
+            <h3 id="comparison">📊 賠償項目比較</h3>
             <table class="price-table">
                 <thead>
                     <tr>
@@ -361,7 +391,7 @@
         </div>
         
         <!-- 美國勝訴案例 -->
-        <div class="section">
+        <div class="section" id="cases">
             <h2>🇺🇸 美國勝訴案例</h2>
             
             <div class="case-study">
@@ -387,7 +417,7 @@
         </div>
         
         <!-- 法律依據 -->
-        <div class="section">
+        <div class="section" id="law">
             <h2>⚖️ 法律依據</h2>
             
             <h3>1. 民法</h3>
@@ -410,7 +440,7 @@
         </div>
         
         <!-- 時間軸 -->
-        <div class="section">
+        <div class="section" id="timeline">
             <h2>📅 事件時間軸</h2>
             
             <div class="timeline">
@@ -559,7 +589,7 @@
         </div>
         
         <!-- FAQ -->
-        <div class="section">
+        <div class="section" id="faq">
             <h2>❓ 常見問題</h2>
             
             <div class="faq-item">
