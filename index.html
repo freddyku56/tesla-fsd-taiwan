@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台灣 Tesla FSD HW3 車主權益爭取</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 60px 20px; color: white; }
+        header h1 { font-size: 2.5rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto; }
+        .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
+        .stat-item { text-align: center; background: rgba(255,255,255,0.1); padding: 20px 30px; border-radius: 10px; backdrop-filter: blur(10px); }
+        .stat-number { font-size: 2.5rem; font-weight: bold; color: #e94560; }
+        .stat-label { font-size: 0.9rem; opacity: 0.8; }
+        .section { background: white; border-radius: 15px; padding: 40px; margin: 30px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .section h2 { color: #1a1a2e; font-size: 1.8rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #e94560; }
+        .section h3 { color: #16213e; font-size: 1.3rem; margin: 25px 0 15px; }
+        .section p, .section li { margin-bottom: 15px; font-size: 1.05rem; }
+        .section ul { padding-left: 20px; }
+        .section li { margin-bottom: 10px; }
+        .price-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .price-table th, .price-table td { padding: 15px 20px; text-align: left; border-bottom: 1px solid #eee; }
+        .price-table th { background: #1a1a2e; color: white; font-weight: 600; }
+        .price-table tr:hover { background: #f8f9fa; }
+        .price-table tr:nth-child(even) { background: #f8f9fa; }
+        .price-table tr:nth-child(even):hover { background: #e9ecef; }
+        .price-highlight { color: #e94560; font-weight: bold; font-size: 1.1rem; }
+        .damage-list { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 25px; border-radius: 10px; margin: 20px 0; }
+        .damage-item { display: flex; align-items: flex-start; margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .damage-icon { font-size: 2rem; margin-right: 15px; min-width: 50px; text-align: center; }
+        .damage-content h4 { color: #1a1a2e; margin-bottom: 5px; }
+        .damage-content p { color: #666; font-size: 0.95rem; }
+        .case-study { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 30px; border-radius: 10px; margin: 20px 0; }
+        .case-study h3 { color: #e94560; margin-bottom: 15px; }
+        .case-study ul { list-style: none; padding: 0; }
+        .case-study li { padding: 8px 0; padding-left: 25px; position: relative; }
+        .case-study li:before { content: "✓"; position: absolute; left: 0; color: #e94560; font-weight: bold; }
+        .form-section { background: linear-gradient(135deg, #e94560 0%, #c23152 100%); color: white; padding: 40px; border-radius: 15px; margin: 30px 0; }
+        .form-section h2 { color: white; border-bottom-color: rgba(255,255,255,0.3); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 15px; border: none; border-radius: 8px; font-size: 1rem; background: rgba(255,255,255,0.9); color: #333; }
+        .form-group textarea { height: 120px; resize: vertical; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .submit-btn { background: white; color: #e94560; border: none; padding: 15px 40px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .faq-item { margin-bottom: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #e94560; }
+        .faq-item h4 { color: #1a1a2e; margin-bottom: 10px; }
+        .faq-item p { color: #666; }
+        .timeline { position: relative; padding-left: 30px; }
+        .timeline:before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #e94560; }
+        .timeline-item { position: relative; margin-bottom: 30px; padding-left: 30px; }
+        .timeline-item:before { content: ''; position: absolute; left: -8px; top: 5px; width: 15px; height: 15px; background: #e94560; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 0 3px #e94560; }
+        .timeline-date { font-weight: bold; color: #e94560; margin-bottom: 5px; }
+        .timeline-content { background: #f8f9fa; padding: 15px; border-radius: 8px; }
+        footer { text-align: center; padding: 40px 20px; color: white; opacity: 0.8; }
+        footer p { margin-bottom: 10px; }
+        .disclaimer { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-top: 20px; font-size: 0.9rem; }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .hero-stats { gap: 20px; }
+            .stat-item { padding: 15px 20px; }
+            .stat-number { font-size: 2rem; }
+            .section { padding: 25px; }
+            .form-row { grid-template-columns: 1fr; }
+            .price-table { font-size: 0.9rem; }
+            .price-table th, .price-table td { padding: 10px 15px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🚗 台灣 Tesla FSD HW3 車主權益爭取</h1>
+            <p>我們是購買了 Full Self-Driving (FSD) 功能的 Tesla HW3 車主。Tesla 承諾的全自動駕駛功能至今未能實現，我們要求合理的賠償與解決方案。</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">7,000+</div>
+                    <div class="stat-label">全球車主參與</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$10,672</div>
+                    <div class="stat-label">美國勝訴案例 (USD)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Level 2</div>
+                    <div class="stat-label">目前 FSD 等級</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- 問題說明 -->
+        <div class="section">
+            <h2>❓ 問題是什麼？</h2>
+            <p>Tesla 在銷售 FSD 時承諾車輛將達到 <strong>Level 5 全自動駕駛</strong>，但多年過去了，FSD 仍然是 <strong>Level 2 輔助駕駛</strong>系統，需要駕駛者持續監控。</p>
+            
+            <h3>🎯 核心爭議</h3>
+            <ul>
+                <li><strong>承諾未實現：</strong>Tesla 承諾 FSD 可在 HW3 硬體上實現全自動駕駛，但現在承認 HW3 無法支援 Unsupervised FSD</li>
+                <li><strong>功能降級：</strong>購買時的承諾與實際交付的功能嚴重不符，FSD 僅為 Level 2</li>
+                <li><strong>價格波動：</strong>早期車主以較高價格購買，後來大幅降價，最後改為訂閱制</li>
+                <li><strong>安全疑慮：</strong>使用 FSD 時出現車輛突然停下、未在學區減速等問題</li>
+            </ul>
+        </div>
+        
+        <!-- FSD 台灣價格歷史 -->
+        <div class="section">
+            <h2>💰 台灣 FSD 價格方案</h2>
+            <p>以下是台灣 Tesla 官網目前的自動輔助駕駛方案售價：</p>
+            
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>方案</th>
+                        <th>台灣售價 (NTD)</th>
+                        <th>說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Autopilot (AP)</td>
+                        <td class="price-highlight">標配</td>
+                        <td>基礎自動輔助駕駛，包含車道維持與定速巡航</td>
+                    </tr>
+                    <tr>
+                        <td>增強版自動輔助駕駛 (EAP)</td>
+                        <td class="price-highlight">$111,000</td>
+                        <td>包含自動變換車道、自動停車、智慧召喚等功能</td>
+                    </tr>
+                    <tr>
+                        <td>全自動輔助駕駛 (FSD)</td>
+                        <td class="price-highlight">$222,000</td>
+                        <td>包含 EAP 所有功能，加上市區街道自動輔助轉向與交通號誌辨識</td>
+                    </tr>
+                    <tr>
+                        <td>FSD 訂閱制</td>
+                        <td class="price-highlight">$2,999/月</td>
+                        <td>2026年7月1日起僅提供訂閱制，不再提供買斷</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>⚠️ 歷史價格變動</h3>
+            <p>不同時期購買 FSD 的價格可能不同。以下是車主反映曾出現的價格區間：</p>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>時期</th>
+                        <th>約略價格 (NTD)</th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2019 年以前</td>
+                        <td class="price-highlight">$64,000 ~ $128,000</td>
+                        <td>早期較低價位（需車主確認實際購買金額）</td>
+                    </tr>
+                    <tr>
+                        <td>2020 ~ 2022 年</td>
+                        <td class="price-highlight">$128,000 ~ $180,000</td>
+                        <td>價格逐步調漲</td>
+                    </tr>
+                    <tr>
+                        <td>2023 ~ 2024 年</td>
+                        <td class="price-highlight">$222,000</td>
+                        <td>調漲至目前價格</td>
+                    </tr>
+                    <tr>
+                        <td>2026 年 7 月起</td>
+                        <td class="price-highlight">$2,999/月</td>
+                        <td>停止買斷，僅提供訂閱</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p><strong>📢 請協助確認：</strong>如果您知道更多確切的歷史價格，請在報名表單中提供，我們會持續更新這份資料。</p>
+        </div>
+        
+        <!-- 可主張的賠償項目 -->
+        <div class="section">
+            <h2>💎 可主張的賠償項目</h2>
+            
+            <div class="damage-list">
+                <div class="damage-item">
+                    <div class="damage-icon">💰</div>
+                    <div class="damage-content">
+                        <h4>1. FSD/EAP 全額退款</h4>
+                        <p>您購買 FSD 或 EAP 的原始價格。這是賠償的核心項目。</p>
+                    </div>
+                </div>
+                
+                <div class="damage-item">
+                    <div class="damage-icon">📈</div>
+                    <div class="damage-content">
+                        <h4>2. 利息損失</h4>
+                        <p>您多年前支付的 FSD 費用，等於無息借貸給 Tesla。可主張法定利息 5% 年息。</p>
+                        <p><strong>範例：</strong>2019 年支付 $128,000 台幣，至今 7 年，利息約 $44,800 台幣</p>
+                    </div>
+                </div>
+                
+                <div class="damage-item">
+                    <div class="damage-icon">🚗</div>
+                    <div class="damage-content">
+                        <h4>3. 車輛價值減損</h4>
+                        <p>當初購買 Tesla 時，FSD 是影響車價的重要因素。若知道 HW3 無法支援 FSD，您可能不會購買或選擇更便宜的車型。</p>
+                    </div>
+                </div>
+                
+                <div class="damage-item">
+                    <div class="damage-icon">⚖️</div>
+                    <div class="damage-content">
+                        <h4>4. 懲罰性賠償金（1-3倍）</h4>
+                        <p>依《消費者保護法》第 51 條，若 Tesla 有故意或重大過失，您可請求損害額 1-3 倍的懲罰性賠償。</p>
+                        <p><strong>範例：</strong>FSD 退款 $222,000 + 懲罰性賠償 $222,000~$666,000 = 共 $444,000~$888,000</p>
+                    </div>
+                </div>
+                
+                <div class="damage-item">
+                    <div class="damage-icon">😔</div>
+                    <div class="damage-content">
+                        <h4>5. 精神慰撫金</h4>
+                        <p>因 Tesla 的欺騙行為導致的心理壓力、安全恐懼、長期等待的焦慮等。</p>
+                    </div>
+                </div>
+                
+                <div class="damage-item">
+                    <div class="damage-icon">🔧</div>
+                    <div class="damage-content">
+                        <h4>6. 硬體升級費用</h4>
+                        <p>若 Tesla 要求您自費升級到 HW4 才能使用 FSD，這筆費用應由 Tesla 負擔。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FSD 轉移 vs. 退款分析 -->
+        <div class="section">
+            <h2>🔄 FSD 轉移 vs. 退款：哪個合理？</h2>
+            
+            <h3>📋 目前台灣 Tesla 的 FSD 轉移政策</h3>
+            <ul>
+                <li><strong>HW3.0 車主</strong>享有限期免費轉移 FSD 到新車的優惠</li>
+                <li>轉移後，新車<strong>永久擁有 FSD</strong>，不需每月訂閱</li>
+                <li><strong>2026年7月1日起</strong>，台灣停止 FSD 買斷方案，僅提供訂閱制（$2,999/月）</li>
+                <li>轉移方案有截止日期，需在期限內購買新車並完成交付</li>
+            </ul>
+            
+            <h3>⚖️ 法律分析：轉移 vs. 退款</h3>
+            
+            <div class="damage-list">
+                <div class="damage-item">
+                    <div class="damage-icon">🔄</div>
+                    <div class="damage-content">
+                        <h4>接受 FSD 轉移</h4>
+                        <p><strong>前提：</strong>你剛好打算購買新車</p>
+                        <p><strong>好處：</strong></p>
+                        <ul>
+                            <li>✅ 免費獲得 FSD 功能（不用再付 $222,000）</li>
+                            <li>✅ 新車有 HW4，可以真正運作 FSD</li>
+                            <li>✅ 永久使用，不用每月付 $2,999</li>
+                        </ul>
+                        <p><strong>代價：</strong></p>
+                        <ul>
+                            <li>❌ 必須花 $150~250 萬購買新車</li>
+                            <li>❌ 轉移方案有截止日期（時間壓力）</li>
+                            <li>❌ 舊車仍然無法使用完整 FSD</li>
+                        </ul>
+                        <p><strong>法律立場：</strong>接受轉移後，你已經拿到 FSD 功能，很難再要求 FSD 全額退款。但仍可爭取利息損失、舊車貶值等附帶損害。</p>
+                    </div>
+                </div>
+                
+                <div class="damage-item">
+                    <div class="damage-icon">💰</div>
+                    <div class="damage-content">
+                        <h4>要求 FSD 全額退款</h4>
+                        <p><strong>前提：</strong>你不想或不需要購買新車</p>
+                        <p><strong>好處：</strong></p>
+                        <ul>
+                            <li>✅ 獲得 FSD 全額退款（$64,000~$222,000）</li>
+                            <li>✅ 可同時要求利息損失、懲罰性賠償</li>
+                            <li>✅ 不需要額外花錢買車</li>
+                        </ul>
+                        <p><strong>代價：</strong></p>
+                        <ul>
+                            <li>❌ 需要透過法律途徑爭取</li>
+                            <li>❌ 可能需要較長時間</li>
+                        </ul>
+                        <p><strong>法律立場：</strong>Tesla 無法在 HW3 車輛上實現承諾的 FSD 功能，構成「給付不能」，消費者有權要求全額退款。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>📊 賠償項目比較</h3>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>賠償項目</th>
+                        <th>接受轉移</th>
+                        <th>要求退款</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FSD 功能</td>
+                        <td class="price-highlight">✅ 已獲得（在新車上）</td>
+                        <td class="price-highlight">✅ 全額退款</td>
+                    </tr>
+                    <tr>
+                        <td>利息損失（5%年息）</td>
+                        <td class="price-highlight">✅ 可爭取</td>
+                        <td class="price-highlight">✅ 可爭取</td>
+                    </tr>
+                    <tr>
+                        <td>舊車價值減損</td>
+                        <td class="price-highlight">✅ 可爭取</td>
+                        <td class="price-highlight">✅ 可爭取</td>
+                    </tr>
+                    <tr>
+                        <td>懲罰性賠償（1-3倍）</td>
+                        <td>❌ 較難主張</td>
+                        <td class="price-highlight">✅ 可爭取</td>
+                    </tr>
+                    <tr>
+                        <td>精神慰撫金</td>
+                        <td>❌ 較難主張</td>
+                        <td class="price-highlight">✅ 可爭取</td>
+                    </tr>
+                    <tr>
+                        <td>額外買車成本</td>
+                        <td>❌ 需自付 $150~250 萬</td>
+                        <td>✅ 不需要</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>💡 建議</h3>
+            <div class="case-study">
+                <h3>如果你打算買新車：</h3>
+                <ul>
+                    <li>接受 FSD 轉移是合理的（你拿到 FSD 了）</li>
+                    <li>但仍可爭取利息損失和舊車貶值的賠償</li>
+                    <li>同時主張：「我接受轉移，但 Tesla 仍應賠償我過去幾年無法使用 FSD 的損失」</li>
+                </ul>
+                
+                <h3>如果你不想買新車：</h3>
+                <ul>
+                    <li>拒絕轉移，直接要求 FSD 全額退款</li>
+                    <li>同時要求利息損失、懲罰性賠償、精神慰撫金</li>
+                    <li>這是最乾淨的解決方式</li>
+                </ul>
+            </div>
+            
+            <p><strong>📢 重要提醒：</strong>不管你選擇哪種方案，都建議先諮詢台灣執業律師，評估你的具體情況和最佳策略。</p>
+        </div>
+        
+        <!-- 美國勝訴案例 -->
+        <div class="section">
+            <h2>🇺🇸 美國勝訴案例</h2>
+            
+            <div class="case-study">
+                <h3>Ben Gawiser v. Tesla（2026年5月）</h3>
+                <ul>
+                    <li><strong>當事人：</strong>Ben Gawiser（一般消費者，非律師）</li>
+                    <li><strong>車型：</strong>Tesla Model 3（2021年8月購買）</li>
+                    <li><strong>FSD 費用：</strong>$10,000 美元</li>
+                    <li><strong>訴訟類型：</strong>小額法庭（Small Claims Court）</li>
+                    <li><strong>訴訟費用：</strong>僅 $72.88 美元</li>
+                    <li><strong>判決結果：</strong>法院判 Gawiser 勝訴，獲得 $10,672.88 美元（含稅金及訴訟費）</li>
+                    <li><strong>重點：</strong>Tesla 完全未回應訴訟，法院作出缺席判決</li>
+                    <li><strong>結果：</strong>2026年5月29日，Gawiser 終於拿到全額退款</li>
+                </ul>
+            </div>
+            
+            <h3>🌍 國際集體行動</h3>
+            <ul>
+                <li><strong>荷蘭：</strong>已有 7,000 名 HW3 車主發起集體法律行動（2026年6月）</li>
+                <li><strong>歐洲：</strong>HW3 車主已架設申訴網站，持續招募成員</li>
+                <li><strong>全球：</strong>Tesla 面臨累計 $145 億美元的訴訟</li>
+            </ul>
+        </div>
+        
+        <!-- 法律依據 -->
+        <div class="section">
+            <h2>⚖️ 法律依據</h2>
+            
+            <h3>1. 民法</h3>
+            <ul>
+                <li><strong>不完全給付（第 227 條）：</strong>Tesla 未能交付承諾的 FSD 功能</li>
+                <li><strong>物之瑕疵擔保（第 354 條）：</strong>FSD 功能與承諾不符</li>
+                <li><strong>給付不能：</strong>Tesla 承認 HW3 無法支援 FSD</li>
+            </ul>
+            
+            <h3>2. 消費者保護法</h3>
+            <ul>
+                <li><strong>第 22 條：</strong>企業經營者應確保廣告內容之真實</li>
+                <li><strong>第 51 條：</strong>懲罰性賠償金（損害額 1-3 倍）</li>
+            </ul>
+            
+            <h3>3. 公平交易法</h3>
+            <ul>
+                <li><strong>第 21 條：</strong>虛偽不實或引人錯誤之表示</li>
+            </ul>
+        </div>
+        
+        <!-- 時間軸 -->
+        <div class="section">
+            <h2>📅 事件時間軸</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2016年</div>
+                    <div class="timeline-content">Tesla 開始銷售 FSD，承諾車輛將實現全自動駕駛</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2019年</div>
+                    <div class="timeline-content">Tesla 宣稱「所有車輛都具備自駕硬體」</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2021年1月</div>
+                    <div class="timeline-content">Elon Musk 承諾：「車輛今年就能超越人類駕駛的可靠性」</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2024年8月</div>
+                    <div class="timeline-content">Tesla 刪除「所有車輛都具備自駕硬體」的官方聲明</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2026年2月</div>
+                    <div class="timeline-content">Tesla 停止銷售 FSD 買斷方案，改為僅提供訂閱制</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2026年4月</div>
+                    <div class="timeline-content">Tesla 公布 HW3 升級方案，確認 HW3 無法支援 Unsupervised FSD</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2026年5月</div>
+                    <div class="timeline-content">美國車主 Ben Gawiser 在小額法庭勝訴，獲得 $10,672 賠償</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2026年6月</div>
+                    <div class="timeline-content">荷蘭 7,000 名 HW3 車主發起集體法律行動；台灣 Tesla 宣布 7/1 起停止 FSD 買斷</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 報名表單 -->
+        <div class="form-section" id="join">
+            <h2>📝 加入集體行動</h2>
+            <p>如果您也是台灣的 Tesla HW3 車主，購買了 FSD 但未能獲得承諾的功能，請填寫以下表單加入我們的集體行動。</p>
+            
+            <form id="joinForm" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">姓名 *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">電子信箱 *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">手機號碼 *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="carModel">車型 *</label>
+                        <select id="carModel" name="carModel" required>
+                            <option value="">請選擇車型</option>
+                            <option value="Model S">Model S</option>
+                            <option value="Model 3">Model 3</option>
+                            <option value="Model X">Model X</option>
+                            <option value="Model Y">Model Y</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="purchaseYear">購買年份 *</label>
+                        <select id="purchaseYear" name="purchaseYear" required>
+                            <option value="">請選擇年份</option>
+                            <option value="2016">2016</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fsdPrice">FSD/EAP 購買價格 (NTD) *</label>
+                        <select id="fsdPrice" name="fsdPrice" required>
+                            <option value="">請選擇價格</option>
+                            <option value="64000">$64,000</option>
+                            <option value="128000">$128,000</option>
+                            <option value="111000">$111,000 (EAP)</option>
+                            <option value="222000">$222,000 (FSD 現行價)</option>
+                            <option value="other">其他價格（請在下方說明）</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="otherPrice">其他購買價格 (NTD)</label>
+                    <input type="text" id="otherPrice" name="otherPrice" placeholder="如果上方選項沒有您的購買價格，請在此填寫實際金額">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vin">車輛識別碼 (VIN)</label>
+                    <input type="text" id="vin" name="vin" placeholder="選填，用於確認車輛資訊">
+                </div>
+                
+                <div class="form-group">
+                    <label for="issues">您遇到的問題</label>
+                    <textarea id="issues" name="issues" placeholder="請描述您使用 FSD 時遇到的問題，例如：車輛突然停下、未在學區減速、功能不符合預期等"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="demands">您希望獲得的賠償</label>
+                    <textarea id="demands" name="demands" placeholder="請描述您希望獲得的賠償方式，例如：全額退款、硬體升級、精神賠償等"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="acceptTransfer">您是否考慮接受 FSD 轉移到新車？</label>
+                    <select id="acceptTransfer" name="acceptTransfer">
+                        <option value="">請選擇</option>
+                        <option value="是，我打算買新車">是，我打算買新車</option>
+                        <option value="否，我要求全額退款">否，我要求全額退款</option>
+                        <option value="不確定，需要更多資訊">不確定，需要更多資訊</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">🚀 加入集體行動</button>
+            </form>
+        </div>
+        
+        <!-- FAQ -->
+        <div class="section">
+            <h2>❓ 常見問題</h2>
+            
+            <div class="faq-item">
+                <h4>Q: 我需要付費嗎？</h4>
+                <p>A: 目前加入集體行動是免費的。如果未來需要訴訟費用，會事先告知並取得同意。</p>
+            </div>
+            
+
+            
+            <div class="faq-item">
+                <h4>Q: 我已經賣掉車子了，還可以加入嗎？</h4>
+                <p>A: 可以，只要您曾經購買過 FSD 且未能獲得承諾的功能，就可以加入。</p>
+            </div>
+            
+
+            
+            <div class="faq-item">
+                <h4>Q: 集體行動會持續多久？</h4>
+                <p>A: 集體行動的時間長短取決於多種因素，包括 Tesla 的回應、法律程序等。我們會定期更新進度。</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Q: 我需要提供哪些證據？</h4>
+                <p>A: 請保留以下證據：
+                    <ul>
+                        <li>FSD 購買收據或訂單確認信</li>
+                        <li>Tesla 官網關於 FSD 功能的截圖</li>
+                        <li>Elon Musk 或 Tesla 官方的相關聲明</li>
+                        <li>使用 FSD 時遇到問題的記錄</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+        
+        <!-- 聯繫方式 -->
+        <div class="section">
+            <h2>📞 聯繫我們</h2>
+            <p>如果您有任何問題，歡迎透過以下方式聯繫我們：</p>
+            <ul>
+                <li><strong>電子郵件：</strong>待建立</li>
+                <li><strong>LINE 群組：</strong>待建立</li>
+                <li><strong>Facebook 社團：</strong>待建立</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2026 台灣 Tesla FSD HW3 車主權益爭取</p>
+            <div class="disclaimer">
+                <p><strong>⚠️ 免責聲明：</strong></p>
+                <p>本網站僅供資訊分享與集體行動串連之用，不構成正式法律意見。</p>
+                <p>每個案件的具體情況不同，建議您諮詢台灣執業律師以獲得針對性的法律建議。</p>
+                <p>本網站所引用的案例與數據來自公開報導，僅供參考。</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            // 顯示載入中
+            const btn = event.target.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+            btn.textContent = '⏳ 提交中...';
+            btn.disabled = true;
+            
+            // 提交到 Google Sheet
+            fetch('https://script.google.com/macros/s/AKfycby6snOg443bgmter349WxNOtHosCmM4cOpWu0R3eYLun-AS0O6V2I6UcXvTSCRp9IQr4w/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                alert('✅ 報名成功！感謝您的加入，我們會盡快與您聯繫。\n\n請記得保留您的 FSD 購買收據與相關證據。');
+                event.target.reset();
+            })
+            .catch((error) => {
+                alert('❌ 提交失敗，請稍後再試。\n\n錯誤訊息：' + error.message);
+            })
+            .finally(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            });
+        }
+        
+        // 平滑滾動
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
